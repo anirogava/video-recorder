@@ -7,8 +7,8 @@ export enum VideoQuality {
 export interface VideoRecord {
   id?: number;
   blob: Blob;
-  title: string;
-  createdAt: Date;
+  title?: string;
+  createdAt: number;
 }
 
 export interface VideoStateModel {

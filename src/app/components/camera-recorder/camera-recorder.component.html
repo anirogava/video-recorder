@@ -1,0 +1,81 @@
+<div class="video-wrapper">
+  @if (isLoading) {
+    <div class="overlay loading-overlay">
+      <div class="spinner"></div>
+    </div>
+  }
+
+  @if (cameraError) {
+    <div class="overlay error-overlay">
+      <p class="error-msg">Camera access denied or unavailable.</p>
+    </div>
+  }
+
+  <video #videoElement autoplay muted playsinline></video>
+
+  @if (!isLoading && !cameraError) {
+    <div class="settings-container">
+      <button class="icon-btn settings-btn" (click)="showSettings = !showSettings">
+        @if (showSettings) {
+          <i class="bi bi-x-lg"></i>
+        } @else {
+          <i class="bi bi-gear-fill"></i>
+        }
+      </button>
+
+      @if (showSettings) {
+        <div class="settings-menu">
+          <div
+            [class.active]="quality === VideoQuality.LOW"
+            (click)="changeQuality(VideoQuality.LOW)"
+          >
+            <span class="quality-text">360p <small>(Low Quality)</small></span>
+            @if (quality === VideoQuality.LOW) {
+              <i class="bi bi-check-lg check-icon"></i>
+            }
+          </div>
+          <div
+            [class.active]="quality === VideoQuality.MEDIUM"
+            (click)="changeQuality(VideoQuality.MEDIUM)"
+          >
+            <span class="quality-text">720p <small>(Medium Quality)</small></span>
+            @if (quality === VideoQuality.MEDIUM) {
+              <i class="bi bi-check-lg check-icon"></i>
+            }
+          </div>
+          <div
+            [class.active]="quality === VideoQuality.HIGH"
+            (click)="changeQuality(VideoQuality.HIGH)"
+          >
+            <span class="quality-text">1080p <small>(High Quality)</small></span>
+            @if (quality === VideoQuality.HIGH) {
+              <i class="bi bi-check-lg check-icon"></i>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="controls-container">
+      @if (!isRecording) {
+        <div class="record-wrapper idle" (click)="startRecording()">
+          <div class="btn-outer-circle">
+            <div class="record-dot-red"></div>
+          </div>
+        </div>
+      } @else {
+        <div class="record-wrapper active" (click)="stopRecording()">
+          <div class="btn-outer-circle">
+            <div class="stop-square-blue"></div>
+          </div>
+          <div class="progress-section">
+            <div class="progress-track">
+              <div class="progress-fill" [style.width.%]="recordingProgress"></div>
+            </div>
+            <span class="timer-text">{{ getFormattedTime() }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

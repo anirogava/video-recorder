@@ -1,0 +1,25 @@
+@if (isInitializing) {
+  <div class="layout-grid skeleton-grid">
+    <div class="skeleton-box camera-skeleton">
+      <div class="spinner"></div>
+    </div>
+    <div class="skeleton-box sidebar-skeleton"></div>
+  </div>
+} @else {
+  <div class="layout-grid">
+    <app-camera-recorder
+      class="camera-area"
+      [quality]="(quality$ | async)!"
+      (videoRecorded)="onVideoRecorded($event)"
+      (qualityChanged)="onQualityChanged($event)">
+    </app-camera-recorder>
+
+    <aside class="sidebar-area">
+      <div class="empty-state">
+        <i class="bi bi-camera-video-fill icon-camera-off"></i>
+        <p>There are no recorded videos yet</p>
+      </div>
+    </aside>
+
+  </div>
+}
