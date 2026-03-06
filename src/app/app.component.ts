@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {CameraRecorderComponent} from "./components/camera-recorder/camera-recorder.component";
-import {VideoState} from "./store/video.state";
-import {Select, Store} from "@ngxs/store";
-import {Observable} from "rxjs";
-import {VideoQuality, VideoRecord} from "./models";
-import {AsyncPipe} from "@angular/common";
-import {AddVideo, LoadVideos, SetQuality} from "./store/video.actions";
-import {BandwidthService} from "./services/bandwidth.service";
+import { Component, OnInit } from '@angular/core';
+import { CameraRecorderComponent } from './components/camera-recorder/camera-recorder.component';
+import { VideoState } from './store/video.state';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { VideoQuality, VideoRecord } from './models';
+import { AsyncPipe } from '@angular/common';
+import { AddVideo, LoadVideos, SetQuality } from './store/video.actions';
+import { BandwidthService } from './services/bandwidth.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,7 @@ import {BandwidthService} from "./services/bandwidth.service";
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   @Select(VideoState.getVideos) videos$!: Observable<VideoRecord[]>;
   @Select(VideoState.getQuality) quality$!: Observable<VideoQuality>;
 
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit{
 
   constructor(
     private store: Store,
-    private bandwidthService: BandwidthService
+    private bandwidthService: BandwidthService,
   ) {}
 
   async ngOnInit() {
